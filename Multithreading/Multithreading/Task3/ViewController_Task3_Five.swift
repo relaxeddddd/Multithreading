@@ -41,20 +41,18 @@ class ViewController_Task3_Five: UIViewController {
         }
 
         func thread2() {
-            print("Поток 2 пытается захватить Ресурс B")
             resourceBSemaphore.wait() // Захват Ресурса B
-            resourceBSemaphore.wait() // Попытка захвата Ресурса B, который уже занят Потоком 2
+            resourceASemaphore.wait() // Попытка захвата Ресурса A, который уже занят Потоком 1
+            print("Поток 2 пытается захватить Ресурс B")
             
             print("Поток 2 захватил Ресурс B и пытается захватить Ресурс A")
             Thread.sleep(forTimeInterval: 1) // Имитация работы для демонстрации livelock
             
-            resourceASemaphore.wait() // Попытка захвата Ресурса A, который уже занят Потоком 1
             print("Поток 2 захватил Ресурс A")
             
             resourceASemaphore.signal()
             resourceBSemaphore.signal()
         }
-
 }
 
-// Проблемаа Livelocka
+// Проблема LiveLock
